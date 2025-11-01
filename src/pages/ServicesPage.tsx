@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function ServicesPage() {
-  const API_URL = "http://localhost:4000/api/services";
+  const API_URL = "https://booking-app-backend-api.onrender.com/api/services";
 
   const [services, setServices] = useState([]);
   const [form, setForm] = useState({

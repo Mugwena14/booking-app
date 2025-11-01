@@ -12,7 +12,7 @@ export const fetchServices = createAsyncThunk(
   "services/fetchServices",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("/api/services");
+      const res = await axios.get("https://booking-app-backend-api.onrender.com/api/services");
       return res.data; // array of services
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to fetch services");
@@ -25,7 +25,7 @@ export const createService = createAsyncThunk(
   "services/createService",
   async (payload, { rejectWithValue }) => {
     try {
-      const res = await axios.post("/api/services", payload);
+      const res = await axios.post("https://booking-app-backend-api.onrender.com/api/services", payload);
       return res.data; 
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to create service");
@@ -38,7 +38,7 @@ export const updateService = createAsyncThunk(
   "services/updateService",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`/api/services/${id}`, data);
+      const res = await axios.put(`https://booking-app-backend-api.onrender.com/api/services/${id}`, data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to update service");
@@ -51,7 +51,7 @@ export const deleteService = createAsyncThunk(
   "services/deleteService",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/services/${id}`);
+      await axios.delete(`https://booking-app-backend-api.onrender.com/api/services/${id}`);
       return id; 
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to delete service");
@@ -64,7 +64,7 @@ export const seedServices = createAsyncThunk(
   "services/seedServices",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.post("/api/services/seed");
+      const res = await axios.post("https://booking-app-backend-api.onrender.com/api/services/seed");
       return res.data.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to seed services");

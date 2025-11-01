@@ -14,7 +14,7 @@ const AdminLoginPage = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:4000/api/admin/login", {
+      const res = await axios.post("https://booking-app-backend-api.onrender.com/api/admin/login", {
         email,
         password,
       });

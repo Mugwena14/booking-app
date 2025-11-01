@@ -13,7 +13,7 @@ export default function AdminAvailabilityPage() {
   // Fetch unavailable slots
   const fetchSlots = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/availability");
+      const res = await axios.get("https://booking-app-backend-api.onrender.com/api/availability");
       setSlots(res.data.unavailableSlots || []);
     } catch (err) {
       console.error("Error fetching unavailable slots:", err);
@@ -30,7 +30,7 @@ export default function AdminAvailabilityPage() {
     if (!newSlot.date || !newSlot.startTime || !newSlot.endTime) return alert("Fill all fields");
     try {
       setSaving(true);
-      const res = await axios.post("http://localhost:4000/api/availability", newSlot);
+      const res = await axios.post("https://booking-app-backend-api.onrender.com/api/availability", newSlot);
       setSlots(res.data.record.unavailableSlots);
       setNewSlot({ date: "", startTime: "", endTime: "" });
     } catch (err) {
@@ -42,7 +42,7 @@ export default function AdminAvailabilityPage() {
 
   const deleteSlot = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:4000/api/availability/${id}`);
+      await axios.delete(`https://booking-app-backend-api.onrender.com/api/availability/${id}`);
       setSlots(slots.filter((s) => s._id !== id));
     } catch (err) {
       console.error("Error deleting slot:", err);

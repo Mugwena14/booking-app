@@ -80,7 +80,7 @@ export default function BookingPage() {
       try {
         const from = formatISODate(today);
         const to = formatISODate(addDays(today, 7));
-        const { data } = await axios.get(`http://localhost:4000/api/bookings/exhausted`, { params: { from, to } });
+        const { data } = await axios.get(`https://booking-app-backend-api.onrender.com/api/bookings/exhausted`, { params: { from, to } });
         setExhaustedDates(data || []);
       } catch (err) { console.error("Error fetching exhausted dates:", err); }
     };
@@ -90,7 +90,7 @@ export default function BookingPage() {
   useEffect(() => {
     const fetchUnavailableSlots = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/availability/unavailable");
+        const { data } = await axios.get("https://booking-app-backend-api.onrender.com/api/availability/unavailable");
         setUnavailableSlots(data || []);
       } catch (err) { console.error("Error fetching unavailable slots:", err); }
     };
@@ -101,7 +101,7 @@ export default function BookingPage() {
     const fetchSlots = async () => {
       if (!service?._id || !date) return;
       try {
-        const { data } = await axios.get(`http://localhost:4000/api/bookings/slots`, { params: { serviceId: service._id, date } });
+        const { data } = await axios.get(`https://booking-app-backend-api.onrender.com/api/bookings/slots`, { params: { serviceId: service._id, date } });
         setSlotsForSelectedDate(data || []);
       } catch (err) { console.error("Error fetching slots:", err); }
     };
@@ -122,7 +122,7 @@ export default function BookingPage() {
     if (!service || !date || !time || !customer.name || !customer.phone) return;
     try {
       const bookingData = { serviceId: service._id, date, time, vehicle, customer };
-      const { data } = await axios.post(`http://localhost:4000/api/bookings`, bookingData);
+      const { data } = await axios.post(`https://booking-app-backend-api.onrender.com/api/bookings`, bookingData);
       navigate("/summary", { state: { booking: data } });
       dispatch(resetBooking());
     } catch (err) { console.error("Booking creation failed:", err); alert("Failed to confirm booking. Please try again."); }
@@ -265,17 +265,67 @@ export default function BookingPage() {
               </motion.div>
             )}
 
-            {/* Step 2 & Step 3: Use your existing code */}
+            {/* Step 2 - Vehicle & Contact */}
+            {step===2 && (
+              <motion.div key="step-vehicle" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+                <h2 className="text-lg font-semibold mb-3">Vehicle & Contact</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Vehicle Details</h3>
+                    {["make","model","year","color","plate"].map(key=>(
+                      <input key={key} placeholder={key} value={(vehicle as any)[key]||""} onChange={e=>dispatch(updateVehicle({[key]:e.target.value}))} className="w-full p-2 mb-2 rounded bg-white/5 text-white"/>
+                    ))}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Contact</h3>
+                    {["name","phone","email"].map(key=>(
+                      <input key={key} placeholder={key} value={(customer as any)[key]||""} onChange={e=>dispatch(updateCustomer({[key]:e.target.value}))} className="w-full p-2 mb-2 rounded bg-white/5 text-white"/>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step 3 - Confirm */}
+            {step===3 && (
+              <motion.div key="step-confirm" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+                <h2 className="text-lg font-semibold mb-3">Confirm Booking</h2>
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-sm text-gray-400">Service</div>
+                    <div className="font-medium">{service?.title || "-"}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-400">Date & Time</div>
+                    <div className="font-medium">{date || "-"} {time?`@ ${time}`:""}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-400">Vehicle</div>
+                    <div className="font-medium">{vehicle.make} {vehicle.model} ({vehicle.year}) - {vehicle.plate}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-400">Contact</div>
+                    <div className="font-medium">{customer.name} — {customer.phone} — {customer.email}</div>
+                  </div>
+                  <div className="pt-3 flex gap-3">
+                    <button onClick={handleConfirm} disabled={!service || !date || !time || !customer.name} className="px-4 py-2 bg-green-600 text-white rounded disabled:opacity-60">Confirm Booking</button>
+                    <button onClick={()=>dispatch(setStep(2))} className="px-4 py-2 bg-white/5 text-white rounded">Back</button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
           </AnimatePresence>
 
           {/* Navigation */}
           <div className="mt-6 flex items-center justify-between">
-            {step > 0 && <button onClick={() => dispatch(setStep(step - 1))} className="px-3 py-1 bg-white/5 rounded text-white">Back</button>}
+            {step>0 && <button onClick={()=>dispatch(setStep(step-1))} className="px-3 py-1 bg-white/5 rounded text-white">Back</button>}
             <div className="flex gap-2">
-              {step < 3 && <button onClick={handleNext} className="px-4 py-2 bg-sky-600 text-white rounded">Next</button>}
-              <button onClick={() => navigate("/", { replace: true })} className="px-4 py-2 bg-white/5 text-white rounded">Cancel</button>
+              {step<3 && <button onClick={handleNext} className="px-4 py-2 bg-sky-600 text-white rounded">Next</button>}
+              <button onClick={()=>navigate("/",{replace:true})} className="px-4 py-2 bg-white/5 text-white rounded">Cancel</button>
             </div>
           </div>
+
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ export const fetchAvailability = createAsyncThunk(
   "availability/fetchAvailability",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:8080/api/availability");
+      const res = await axios.get("https://booking-app-backend-api.onrender.com/api/availability");
       return res.data;
     } catch (err) {
       return rejectWithValue(
@@ -28,7 +28,7 @@ export const fetchSlotsForDate = createAsyncThunk(
   async ({ serviceId, date }, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/availability/slots?serviceId=${serviceId}&date=${date}`
+        `https://booking-app-backend-api.onrender.com/api/availability/slots?serviceId=${serviceId}&date=${date}`
       );
       return res.data; // Expect an array of slots
     } catch (err) {

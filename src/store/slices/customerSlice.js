@@ -14,7 +14,7 @@ export const fetchCustomers = createAsyncThunk(
   "customers/fetchCustomers",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("/api/customers");
+      const res = await axios.get("https://booking-app-backend-api.onrender.com/api/customers");
       return res.data;
     } catch (err) {
       return rejectWithValue(
@@ -29,7 +29,7 @@ export const fetchCustomerById = createAsyncThunk(
   "customers/fetchCustomerById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`/api/customers/${id}`);
+      const res = await axios.get(`https://booking-app-backend-api.onrender.com/api/customers/${id}`);
       return res.data; // { customer, history }
     } catch (err) {
       return rejectWithValue(

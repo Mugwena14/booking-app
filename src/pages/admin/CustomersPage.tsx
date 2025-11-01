@@ -16,7 +16,7 @@ export default function CustomersPage() {
   const fetchCustomers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/api/customers");
+      const res = await axios.get("https://booking-app-backend-api.onrender.com/api/customers");
       setCustomers(res.data);
     } catch (err) {
       console.error("Error fetching customers:", err);
@@ -33,7 +33,7 @@ export default function CustomersPage() {
 
     try {
       setSearching(true);
-      const res = await axios.get(`http://localhost:4000/api/customers/${searchId.trim()}`);
+      const res = await axios.get(`https://booking-app-backend-api.onrender.com/api/customers/${searchId.trim()}`);
       setCustomers([res.data]);
     } catch (err: any) {
       if (err.response?.status === 404) setCustomers([]);
