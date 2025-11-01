@@ -2,7 +2,7 @@ import Booking from "../models/Booking.js";
 import Customer from "../models/Customer.js";
 import Service from "../models/Service.js";
 
-// 🟢 Create a new booking
+// Create a new booking
 export const createBooking = async (req, res) => {
   try {
     const { serviceId, date, time, vehicle, customer } = req.body;
@@ -55,12 +55,12 @@ export const createBooking = async (req, res) => {
     res.status(201).json(booking);
 
   } catch (err) {
-    console.error("❌ Booking creation error:", err);
+    console.error("Booking creation error:", err);
     res.status(500).json({ message: "Server error creating booking", error: err.message });
   }
 };
 
-// 🕐 Get available time slots
+// Get available time slots
 export const getAvailableSlots = async (req, res) => {
   try {
     const { serviceId, date } = req.query;
@@ -145,7 +145,7 @@ export const updateBookingStatus = async (req, res) => {
 
     res.json(booking);
   } catch (err) {
-    console.error("❌ Error updating booking status:", err);
+    console.error("Error updating booking status:", err);
     res.status(500).json({ message: "Error updating booking status", error: err.message });
   }
 };

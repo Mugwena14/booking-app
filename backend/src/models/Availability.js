@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const UnavailabilitySchema = new mongoose.Schema({
-  date: { type: String, required: true }, // YYYY-MM-DD
-  startTime: { type: String, required: true }, // HH:mm
-  endTime: { type: String, required: true }, // HH:mm
+  date: { type: String, required: true }, 
+  startTime: { type: String, required: true }, 
+  endTime: { type: String, required: true }, 
 });
 
 const AvailabilitySchema = new mongoose.Schema(
   {
-    unavailableSlots: [UnavailabilitySchema], // list of blocked dates/times
+    unavailableSlots: [UnavailabilitySchema], 
   },
   { timestamps: true }
 );

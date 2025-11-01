@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Availability from "../models/Availability.js";
 
-// 🟢 Get all unavailable slots
+// Get all unavailable slots
 export const getUnavailableSlots = asyncHandler(async (req, res) => {
   const record = await Availability.findOne();
   if (!record) {
@@ -12,7 +12,7 @@ export const getUnavailableSlots = asyncHandler(async (req, res) => {
 
 
 
-// 🟡 Add a new unavailable slot
+// Add a new unavailable slot
 export const addUnavailableSlot = asyncHandler(async (req, res) => {
   const { date, startTime, endTime } = req.body;
 
@@ -27,7 +27,7 @@ export const addUnavailableSlot = asyncHandler(async (req, res) => {
   res.json({ message: "Slot added", record });
 });
 
-// 🔴 Remove unavailable slot
+// Remove unavailable slot
 export const removeUnavailableSlot = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

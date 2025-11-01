@@ -1,14 +1,13 @@
-// controllers/servicesController.js
 import Service from "../models/Service.js";
 import { asyncHandler } from "../middlewares/asyncHandler.js";
 
-// ✅ 1. Get all services
+// Get all services
 export const listServices = asyncHandler(async (req, res) => {
   const services = await Service.find().sort({ title: 1 });
   res.status(200).json(services);
 });
 
-// ✅ 2. Create a new service (Admin)
+// Create a new service (Admin)
 export const createService = asyncHandler(async (req, res) => {
   const { title, description, price, duration, image, videoUrl } = req.body;
 
@@ -35,7 +34,7 @@ export const createService = asyncHandler(async (req, res) => {
   res.status(201).json(newService);
 });
 
-// ✅ 3. Update a service
+// Update a service
 export const updateService = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const updatedService = await Service.findByIdAndUpdate(id, req.body, { new: true });
@@ -48,7 +47,7 @@ export const updateService = asyncHandler(async (req, res) => {
   res.status(200).json(updatedService);
 });
 
-// ✅ 4. Delete a service
+// Delete a service
 export const deleteService = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const deleted = await Service.findByIdAndDelete(id);
@@ -61,7 +60,7 @@ export const deleteService = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Service deleted successfully" });
 });
 
-// ✅ 5. Seed default services (Admin)
+// Seed default services (Admin)
 export const seedServices = asyncHandler(async (req, res) => {
   const defaultServices = [
     {
