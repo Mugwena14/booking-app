@@ -144,7 +144,7 @@ const Index = () => {
                   direction="up"
                   duration={1}
                   className="count-up-text"
-                /><p>+</p>
+                /><span>+</span>
               </div>
 
               <div className="text-lg text-muted-foreground">Years Experience</div>
@@ -158,7 +158,7 @@ const Index = () => {
                   direction="up"
                   duration={1}
                   className="count-up-text"
-                /><p>+</p>
+                /><span>+</span>
               </div>
               <div className="text-lg text-muted-foreground">Vehicles Transformed</div>
             </div>
