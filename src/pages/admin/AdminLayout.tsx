@@ -1,9 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import DarkVeil from "../DarkVeil.tsx";
 import { LogOut, Calendar, Users, Settings, Home, List } from "lucide-react";
+import { logoutAdmin } from "@/utils/auth";
 
 export default function AdminLayout() {
+  const navigate = useNavigate();
+
   const navItems = [
     { name: "Overview", path: "/admin", icon: Home },
     { name: "Bookings", path: "/admin/bookings", icon: Calendar },
@@ -11,6 +14,12 @@ export default function AdminLayout() {
     { name: "Customers", path: "/admin/customers", icon: Users },
     { name: "Services", path: "/admin/services", icon: List },
   ];
+
+  // Logout handler
+  const handleLogout = () => {
+    logoutAdmin(); 
+    navigate("/");
+  };
 
   return (
     <div className="flex min-h-screen text-white relative">
@@ -50,7 +59,11 @@ export default function AdminLayout() {
           </nav>
         </div>
 
-        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition">
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+        >
           <LogOut size={18} /> Logout
         </button>
       </motion.aside>
