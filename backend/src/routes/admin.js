@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { registerAdmin, loginAdmin } = require("../controllers/adminController");
+import { registerAdmin, loginAdmin } from "../controllers/adminController.js";
 
 // One-time setup for the first admin
 router.post("/setup", registerAdmin);
@@ -8,4 +8,4 @@ router.post("/setup", registerAdmin);
 // Login existing admin
 router.post("/login", loginAdmin);
 
-module.exports = router;
+export default router;

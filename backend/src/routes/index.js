@@ -11,6 +11,6 @@ router.use("/services", services);
 router.use("/bookings", bookings);
 router.use("/availability", availability);
 router.use("/customers", customers);
-app.use("/admin", admin);
+router.use("/admin", admin);
 
 export default router;

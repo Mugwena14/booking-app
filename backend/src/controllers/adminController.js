@@ -1,6 +1,6 @@
-const Admin = require("../models/Admin");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import Admin from "../models/Admin.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 // Generate JWT
 const generateToken = (admin) => {
@@ -12,7 +12,7 @@ const generateToken = (admin) => {
 };
 
 // One-time setup route to create the first admin
-exports.registerAdmin = async (req, res) => {
+export const registerAdmin = async (req, res) => {
   try {
     const { name, email, password, secretKey } = req.body;
 
@@ -38,7 +38,7 @@ exports.registerAdmin = async (req, res) => {
 };
 
 // Login route for admin
-exports.loginAdmin = async (req, res) => {
+export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
