@@ -82,7 +82,7 @@ const Index = () => {
             <Button
               variant="hero"
               size="lg"
-              onClick={() => navigate("/services")}
+              onClick={() => navigate("/booking")}
               className="text-lg px-10 py-3 h-auto transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               Book Appointment
